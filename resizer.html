@@ -10,7 +10,7 @@ body {
 }
 #main-image {
 	/* background-image: linear-gradient(#7cbfff,#1679bd); */
-	background-image: url('images/Untitled.png');
+	background-image: url('images/untitled.png');
 	/*background-position: center;*/
 	background-size: 100% 100%;
 	/*background-position: center;*/
@@ -24,8 +24,9 @@ body {
 	height: 200px;
 	width: 300px;
 	position: relative;
-	top: 35px;
-	left: 45px;
+	top: 0px;
+	left: 0px;
+	cursor: move;
 }
 .bar {
 	position:absolute;
@@ -92,17 +93,39 @@ body {
 	right: -1.5px;
 }
 .dashed-line {
-
+	width: 33.3333333%;
+	height: 33.3333333%;
+	float: left;
+	overflow: hidden;
+}
+.d1, .d2, .d4, .d5, .d7, .d8 {
+	border-bottom: 1px dashed #eee;
+	border-right: 1px dashed #eee;
+}
+.d3, .d6, .d9 {
+	border-bottom: 1px dashed #eee;
+}
+#movethebox {
+	width: calc(100% - 20px);
+	height: calc(100% - 20px);
+	margin-left: 10px;
+	margin-top: 10px;
+	background-color: transparent;
+	position: absolute;
 }
 </style>
 <script>
 var elem = null;
 var resizer_se = null;
+var resizer_nw = null;
 var a = null;
 var b = null;
 var c = null;
 var d = null;
 var mains = null;
+var xpos = 0, ypos = 0, xelm = 0, yelm = 0;
+var thebox = null;
+var element = null;
 window.onload = function() {
 	mains = document.querySelector("#main-image");
 	a = document.querySelector("#a");
@@ -111,10 +134,42 @@ window.onload = function() {
 	d = document.querySelector("#d");
 	elem = document.querySelector("#resizer");
 	resizer_se = document.querySelector("#point-r-b");
-	resizer_se.addEventListener( 'mousedown', function(e){
-		window.addEventListener( 'mousemove', resizeRB, false );
-		window.addEventListener( 'mouseup', removeresize, false );
-	}, false );
+	//resizer_nw = document.querySelector("#point-l-t");
+	resizer_se.addEventListener( 'mousedown', runResizer, false );
+	//resizer_nw.addEventListener( 'mousedown', runResizer, false );
+	// elem.addEventListener( 'mousedown', movee, false );
+	thebox = document.getElementById("movethebox");
+	thebox.onmousedown = function() {
+		movee(this);
+		return false;
+	}
+	thebox.onmousemove = moveResizer;
+	thebox.onmouseup = terminateMove;
+}
+/*
+function downMove(e) {
+	window.addEventListener( 'mousemove', movee, false );
+}*/
+function terminateMove() {
+	element = null;
+}
+function movee(e) {
+	//elem.addEventListener( 'mousemove', moveResizer, false );
+	element = elem;
+	xelm = xpos - element.offsetLeft;
+	yelm = ypos - element.offsetTop;
+}
+function moveResizer(e) {
+	xpos = document.all ? window.event.clientX : e.pageX;
+    ypos = document.all ? window.event.clientY : e.pageY;
+    if (element !== null) {
+		element.style.left = (xpos - xelm) + 'px';
+		element.style.top = (ypos - yelm) + 'px';
+	}
+}
+function runResizer(e) {
+	window.addEventListener( 'mousemove', resizeRB, false );
+	window.addEventListener( 'mouseup', removeresize, false );
 }
 function resizeRB(e) {
 	var cw = elem.offsetLeft - mains.offsetLeft; /*elem.offsetLeft + mains.offsetWidth;*/
@@ -149,19 +204,27 @@ function removeresize(e) {
 <body>
 	<div id="main-image">
 		<div id="resizer" class="resizer">
-			<div class="dashed-line"></div>
-			<div class="dashed-line"></div>
-			<div class="dashed-line"></div>
-			<div class="dashed-line"></div>
-			<div class="dashed-line"></div>
-			<div class="dashed-line"></div>
+			<div id="movethebox"></div>
+			<div class="dashed-line d1"></div>
+			<div class="dashed-line d2"></div>
+			<div class="dashed-line d3"></div>
+
+			<div class="dashed-line d4"></div>
+			<div class="dashed-line d5"></div>
+			<div class="dashed-line d6"></div>
+
+
+			<div class="dashed-line d7"></div>
+			<div class="dashed-line d8"></div>
+			<div class="dashed-line d9"></div>
+
 			<span class="bar bar-w l-bar"></span>
 			<span class="bar bar-h t-bar"></span>
 			<span class="bar bar-w r-bar"></span>
 			<span class="bar bar-h b-bar"></span>
-			<span class="point point-l-t"></span>
-			<span class="point point-l-b"></span>
-			<span class="point point-r-t"></span>
+			<span id="point-l-t" class="point point-l-t"></span>
+			<span id="point-l-b" class="point point-l-b"></span>
+			<span id="point-r-t" class="point point-r-t"></span>
 			<span id="point-r-b" class="point point-r-b"></span>
 		</div>
 	</div>
