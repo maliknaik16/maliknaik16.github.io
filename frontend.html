@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+var timer = null;
+var imgObject = new Image();
+var myimg = document.querySelector("#myimage");
+imgObject.src ="images/image-min.jpg";
+
+window.onload = function(){ 
+	imgObject.onLoad = imageLoaded(); 
+	setParameters();
+}
+
+
+function getPartofImage(imgObj, newWidth, newHeight, startX, startY, ratio) {
+	var tnCanvas = document.createElement('canvas');
+	 var tnCanvasContext = tnCanvas.getContext('2d');
+	 tnCanvas.width = newWidth; tnCanvas.height = newHeight;
+	 
+	 var bufferCanvas = document.createElement('canvas');
+	 var bufferContext = bufferCanvas.getContext('2d');
+	 bufferCanvas.width = imgObj.width;
+	 bufferCanvas.height = imgObj.height;
+	 bufferContext.drawImage(imgObj, 0, 0);
+	 
+	 tnCanvasContext.drawImage(bufferCanvas, startX,startY,newWidth * ratio, newHeight * ratio,0,0,newWidth,newHeight);
+	 return tnCanvas.toDataURL();
+}
+
+
+function setParameters() {
+	var sr = document.querySelector("#screen-resolution");
+	var dw = document.querySelector("#device-width");
+	var screenWidth = window.screen.width;
+	var screenHeight = window.screen.height;
+
+	var deviceWidth = window.innerWidth;
+
+	var resolution = screenWidth + ' x ' + screenHeight;
+	sr.innerHTML = 'Screen Resolution: ' + resolution;
+	dw.innerHTML = 'Device Width: ' + deviceWidth + 'px';
+}
+
+
+function OnLoadComplete(w,h,sx,sy) {
+	var img = getPartofImage(imgObject, w, h, sx, sy,2);
+	document.getElementById("myimage").src = img;
+}
+</script>
+<style>
+body {
+	font-family: sans-serif, arial;
+	margin: 0;
+	padding: 0;
+}
+#header {
+	background-color: #f4f4f4;
+}
+#screen-resolution {
+	background-color: #7cbfff;
+	color: #fff;
+	font-weight: bold;
+	padding: 20px;
+	display: inline-block;
+}
+#device-width {
+	display: inline-block;
+	vertical-align: top;
+	float: right;
+	background-color: #7cbfff;
+	color: #fff;
+	font-weight: bold;
+	padding: 20px;
+}
+@media screen and (max-width: 585px) {
+	#screen-resolution {
+		display: block;
+		width: calc(100% - 20px);
+	}
+	#device-width {
+		margin-top: 5px;
+		display: block;
+		float: none;
+		width: calc(100% - 20px);
+	}
+}
+#wrapper {
+	padding: 30px 50px;
+}
+.area {
+	background-color: #f4f4f4;
+	padding: 20px;
+	width: 80%;
+	margin: 40px auto 0 auto;
+}
+img {
+	opacity: 1;
+	transition: opacity 1s ease-in-out;
+}
+#dev {
+	background-color: #ffa520;
+	color: #fff;
+	width: 80%;
+	padding: 20px;
+	margin: 40px auto 0 auto;
+	text-align: center;
+}
+</style>
+</head>
+<body onresize="setParameters();changeImage();">
+	<div id="header">
+		<div id="wrapper">
+			<span id="screen-resolution"></span>
+			<span id="device-width"></span>
+		</div>
+	</div>
+	<div id="dev">
+		<h1 id="device">Desktop</h1>
+	</div>
+	<div class="area">
+		<p>aa
+			<img id="myimage" style="float:left; margin: 5px; width: 496px; height: 211px;" src="images/image-min.jpg" /> <!-- width="496" height="211"  --> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at nisi consequat, tempor lorem id, gravida sapien. Cras faucibus, libero eu egestas sodales, lacus elit venenatis metus, sit amet interdum est massa vitae felis. Nam fringilla orci vitae justo suscipit molestie. Donec elementum ipsum vel ex imperdiet scelerisque. Maecenas mi sem, dapibus efficitur tincidunt at, congue eu massa. Proin gravida arcu ligula, quis consequat turpis convallis nec. Ut in enim finibus, aliquam elit ac, consequat dui. Ut ornare rhoncus luctus. Duis sit amet aliquam neque, nec eleifend sapien. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus nec ipsum enim. Donec aliquam augue ac malesuada tincidunt. Integer sodales velit nisi, eu convallis erat finibus eu. Aliquam at erat iaculis, rhoncus nulla ut, rhoncus metus. Quisque fermentum a ante ac pharetra.<br/>
+
+			Ut fermentum facilisis porta. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus commodo congue nisl. Curabitur dapibus, justo eu fringilla semper, nisl diam volutpat lorem, rhoncus pulvinar nisi est sit amet augue. Maecenas eget imperdiet massa. Curabitur a rutrum ex, vitae condimentum ligula. Aliquam dignissim consectetur eleifend.<br/>
+
+			Suspendisse sollicitudin fringilla egestas. Mauris a magna ut magna volutpat viverra id at est. Pellentesque porta interdum mauris. Cras sollicitudin euismod molestie. Praesent dui metus, suscipit non tempus eget, faucibus et erat. Pellentesque scelerisque eget tellus eu fermentum. Suspendisse at ultrices nulla, vitae laoreet purus. Fusce aliquam dapibus lobortis. Ut porttitor eu arcu eu interdum. Mauris eleifend leo vel ullamcorper blandit. Aliquam mattis nunc id hendrerit condimentum. Aenean euismod in est in interdum. Nullam vulputate ullamcorper purus, porttitor viverra felis molestie vel. Nulla facilisi.<br/>
+		</p>
+	</div>
+<script>
+	function imageLoaded() {
+	if(timer != null) {
+		clearTimeout(timer);
+	}
+	if(!imgObject.complete) {
+		timer = setTimeout(function() {
+			imageLoaded();
+		}, 3);
+	}else{
+		changeImage();
+		// OnLoadComplete(150,150,630,200);
+	}
+}
+function loadTheImage(wd,ht,sx,sy) {
+	var imageElement = document.getElementById("myimage");
+	var image = getPartofImage(imgObject, wd, ht, sx, sy,2);
+	imageElement.src = image;
+}
+function changeImage() {
+	var wd = 150;
+	var ht = 150;
+	var sx = 630;
+	var sy = 200;
+	var elm = document.getElementById("device");
+	var bk = document.getElementById("dev");
+	var imageElement = document.getElementById("myimage");
+	if(window.innerWidth < 480){
+		wd = 150;
+		ht = 150;
+		loadTheImage(wd,ht,sx,sy);
+		imageElement.style.width = wd + 'px';
+		imageElement.style.height = ht + 'px';
+		elm.innerHTML = 'MOBILE';
+		bk.style.backgroundColor = "tomato";
+	}else if(window.innerWidth < 768) {
+		wd = 250;
+		ht = 350;
+		sx = 520;
+		sy = 10;
+		loadTheImage(wd,ht,sx,sy);
+		imageElement.style.width = wd + 'px';
+		imageElement.style.height = ht + 'px';
+		elm.innerHTML = 'TABLET';
+		bk.style.backgroundColor = "DodgerBlue";
+	}else if(window.innerWidth > 968) {
+		imageElement.src = 'images/image-min.jpg';
+		imageElement.style.width = 496 + 'px';
+		imageElement.style.height = 211 + 'px';
+		elm.innerHTML = 'DESKTOP';
+		bk.style.backgroundColor = "MediumSeaGreen";
+		/*wd = imgObject.width;
+		ht = imgObject.height;
+		loadTheImage(wd,ht,0,0);*/
+	}
+}
+
+</script>
+</body>
+</html>
