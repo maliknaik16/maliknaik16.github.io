@@ -269,3 +269,91 @@ body {
     min-height: -moz-calc(100% - 186px);
     min-height: calc(100% - 10px);
 }
+
+.publications p {
+    font-size: 1em;
+    margin-top: .3rem;
+    margin-bottom: .3rem;
+}
+
+.publications hr {
+    margin-bottom: .5rem;
+    margin-top: .5rem;
+}
+
+.publication-block {
+    margin-bottom: 1rem;
+}
+
+.publications a {
+    font-weight: bold;
+    text-decoration: underline;
+    color: rgb(37, 99, 235);
+}
+
+.pub-year, .student-type {
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.student-type {
+
+}
+
+.publications a:hover {
+    color: rgb(30,64,175);
+}
+
+.scholar-name {
+    padding: .5em 0 .2em 0;
+}
+
+.scholar-link {
+    padding: .5em 0;
+}
+
+.scholar-link button {
+    padding: .6em 1em;
+}
+
+.people-block {
+    padding: 1em;
+}
+
+.people-block img {
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+}
+/*
+.img-container, .student-info {
+    display: inline-block;
+}
+
+.student-info {
+    margin-left: 1rem;
+}
+*/
+.people-block p {
+    font-size: 1rem;
+}
+
+.student-name {
+    color: rgb(30,64,175);
+    font-size: 1.175rem;
+    font-weight: bold;
+}
+
+.student-image {
+    background-size: cover;
+    background-position: center;
+    min-height: 150px;
+    min-width: 150px;
+}
+
+@media screen and (max-width: 768px) {
+    .student-image {
+/*        min-height: 300px;
+        min-width: 300px;*/
+    }
+}
