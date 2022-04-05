@@ -324,7 +324,18 @@ body {
 .publications a {
     font-weight: bold;
     text-decoration: underline;
-    color: rgb(37, 99, 235);
+    /*color: rgb(37, 99, 235);*/
+    color: #007fae;
+}
+
+.contact a {
+    text-decoration: none;
+    color: #007fae;
+}
+
+.contact a:hover {
+    color: #006185;
+    text-decoration: underline;
 }
 
 .pub-year, .student-type {
@@ -334,8 +345,19 @@ body {
     color: rgba(0, 0, 0, 0.65);
 }
 
+.scholar-button {
+    font-weight: normal !important;
+    background-color: #007fae;
+    border-color: #007fae;
+}
+
+.scholar-button:hover {
+    background-color: #006185;
+}
+
 .publications a:hover {
-    color: rgb(30,64,175);
+    /*color: rgb(30,64,175);*/
+    color: #006185;
 }
 
 .scholar-name {
@@ -373,7 +395,8 @@ body {
 }
 
 .student-name {
-    color: rgb(30,64,175);
+    /*color: rgb(30,64,175);*/
+    color: #4B9CD3;
     font-size: 1.175rem;
     font-weight: bold;
 }
