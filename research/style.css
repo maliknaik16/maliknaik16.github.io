@@ -172,15 +172,26 @@ body {
     font: 600 4.25em/1.2em 'Oswald',sans-serif;
 }
 
-.main-titles::after {
+
+.main-titles-small {
+    color: #505962;
+    margin: 2.75rem 0 1rem;
+    font: 600 2.25em/1.2em 'Oswald',sans-serif;
+}
+
+.main-titles::after, .main-titles-small::after {
     border-bottom: 0.15em solid #4B9CD3;
     content: "";
-    width: 400px;
     height: 7px;
     display: block;
     max-width: 60px;
     margin-top: 0.25em;
 }
+
+.main-titles-small::after {
+    max-width: 30px;
+}
+
 @media screen and (max-width: 1200px) and (min-width: 992px) {
     .main-titles {
         margin-top: 0.5em;
@@ -221,7 +232,7 @@ body {
 .footer {
     font-family: 'Roboto', sans-serif,arial;
     margin: 0;
-    margin-top: 80px;
+    margin-top: 40px;
     padding: 0;
     background-color: #26282B;
 }
@@ -301,7 +312,7 @@ body {
     margin-bottom: .3rem;
 }
 
-.publications hr {
+.publications hr, #peoples hr {
     margin-bottom: .5rem;
     margin-top: .5rem;
 }
@@ -317,12 +328,10 @@ body {
 }
 
 .pub-year, .student-type {
-    font-weight: bold;
-    font-size: 2rem;
-}
-
-.student-type {
-
+    margin-top: 1rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: rgba(0, 0, 0, 0.65);
 }
 
 .publications a:hover {
@@ -507,9 +516,9 @@ body {
     background: rgba(0, 0, 0, 0);
     border: 0;
     border-radius: 0;
-    font-family: 'Roboto', sans-serif, Arial;
-    font-size: 14px;
-    font-weight: bold;
+    font-family: 'Roboto Slab', sans-serif, Arial;
+    font-size: .95rem;
+    font-weight: 600;
     outline: none;
 }
 
@@ -701,10 +710,6 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
-  border: 3px solid green;
-/*    width: 70%;
-    margin: auto;
-    padding: 10px;*/
 }
 
 .footer-tagline {
